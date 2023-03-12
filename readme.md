@@ -25,11 +25,38 @@ It's goal:
 * [PIR Motion Sensor](https://www.tinytronics.nl/shop/nl/sensoren/beweging/ir-pyroelectrische-infrarood-pir-motion-sensor-detector-module-micro)
 * [Noctua NF-F12 5V PWM case fan](https://www.alternate.nl/Noctua/NF-F12-5V-PWM-case-fan/html/product/1467326)
 
+```shell
+jonas@rackbud:~ $ i2cdetect -y 1
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- --
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+30: -- -- -- -- -- -- -- -- -- -- -- -- 3c -- -- --
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+50: -- -- -- -- -- -- -- -- -- -- -- -- 5c -- -- --
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+70: -- -- -- -- -- -- -- --
+```
+
 ## AM2320
 I2C address 5c
 
 ## OLED display
-I2C address ?
+I2C address 3c
+
+## Motion sensor
+
+```text
+    gnd ------ -
+    3v3 ------ +
+gpio 17 ------ out
+```
+```shell
+jonas@rackbud:~ $ raspi-gpio get 17
+GPIO 17: level=0 fsel=0 func=INPUT
+jonas@rackbud:~ $ raspi-gpio get 17
+GPIO 17: level=1 fsel=0 func=INPUT
+```
 
 # Software
 * [Raspberry PI OS (Lite)](https://www.raspberrypi.com/software/)
