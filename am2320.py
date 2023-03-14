@@ -22,7 +22,7 @@ def get_reading(lbl: str, val: typing.Callable[[], float]):
     while not success and cnt < 5:
         try:
             print(".", end="")
-            print(" ", val())
+            print(" {:.1f}".format(val()))
             success = True
         except:
             time.sleep(delay / 10)
@@ -33,8 +33,15 @@ def get_reading(lbl: str, val: typing.Callable[[], float]):
         print("Foobar")
 
 
+def get_system_temp():
+    with open("/sys/class/thermal/thermal_zone0/temp", "r") as f:
+        t = float(f.read())
+        return t / 1000
+
+
 while True:
-    get_reading("Temp", lambda: am.temperature)
+    get_reading("PI temp:    ", lambda: get_system_temp())
     time.sleep(delay)
-    get_reading("Hum ", lambda: am.relative_humidity)
+    get_reading("AM2320 temp:", lambda: am.temperature)
     time.sleep(delay)
+    get_reading("AM2320 hum: ", lambda: am.relative_humidity)
